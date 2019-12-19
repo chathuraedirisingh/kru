@@ -139,7 +139,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',
@@ -238,15 +238,15 @@ export default class ViewDealerScreen extends Component {
               {/* <Text>{`${this.state.data.location.city}, ${this.state.data.location.state}, ${this.state.data.location.country}`}</Text> */}
             </View>
 
-            {/* <DismissKeyboard> */}
+            <DismissKeyboard>
               <KeyboardAvoidingView
                 style={{
                   flex: 1,
                   flexDirection: 'column',
                   justifyContent: 'center',
                 }}
-                behavior='padding'
-                keyboardVerticalOffset={100}
+                behavior="padding"
+                keyboardVerticalOffset={140}
               >
                 <View
                   style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
@@ -269,7 +269,7 @@ export default class ViewDealerScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>
-            {/* </DismissKeyboard> */}
+            </DismissKeyboard>
           </View>
 
           <View
@@ -280,7 +280,7 @@ export default class ViewDealerScreen extends Component {
             }}>
             <View
               style={{
-                marginTop: 20,
+                marginTop: -20,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
@@ -356,7 +356,7 @@ export default class ViewDealerScreen extends Component {
             <View
               style={{
                 // flex: 1,
-                marginTop: -30,
+                marginTop: -140,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
@@ -458,6 +458,7 @@ export default class ViewDealerScreen extends Component {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     margin: 10,
+                    marginLeft:50
                   }}>
                   <View style={{ flex: 1, alignItems: 'flex-start' }}>
                     <Avatar
@@ -473,7 +474,6 @@ export default class ViewDealerScreen extends Component {
                       flex: 0,
                       alignItems: 'flex-start',
                       marginRight: 10,
-                      marginLeft:80
                     }}>
                     <Text>
                       {user.first_name} {user.last_name}

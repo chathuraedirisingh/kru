@@ -139,7 +139,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',

@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../styles/colors';
 import firebase from '../../configs/firebase';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ScrollView } from 'react-native';
 
 var username;
 function getUsername() {
@@ -139,7 +140,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',
@@ -238,15 +239,15 @@ export default class ViewDealerScreen extends Component {
               {/* <Text>{`${this.state.data.location.city}, ${this.state.data.location.state}, ${this.state.data.location.country}`}</Text> */}
             </View>
 
-            {/* <DismissKeyboard> */}
+            <DismissKeyboard>
               <KeyboardAvoidingView
                 style={{
                   flex: 1,
                   flexDirection: 'column',
                   justifyContent: 'center',
                 }}
-                behavior='padding'
-                keyboardVerticalOffset={100}
+                behavior="padding"
+                keyboardVerticalOffset={140}
               >
                 <View
                   style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
@@ -269,7 +270,7 @@ export default class ViewDealerScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>
-            {/* </DismissKeyboard> */}
+            </DismissKeyboard>
           </View>
 
           <View
@@ -278,12 +279,14 @@ export default class ViewDealerScreen extends Component {
               // flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
+              <ScrollView style={{height:'100%'}}>
             <View
               style={{
-                marginTop: 20,
+                marginTop: -20,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
+              
               <TouchableOpacity
                 style={{
                   width: 80,
@@ -356,7 +359,7 @@ export default class ViewDealerScreen extends Component {
             <View
               style={{
                 // flex: 1,
-                marginTop: -30,
+                marginTop: -140,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
@@ -416,6 +419,7 @@ export default class ViewDealerScreen extends Component {
                 <Icon name="search" size={40} color={colors.SKY_BLUE} />
               </TouchableOpacity>
             </View>
+            </ScrollView>
           </View>
         </View >
       );

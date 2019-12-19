@@ -139,7 +139,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',
@@ -238,7 +238,7 @@ export default class ViewDealerScreen extends Component {
               {/* <Text>{`${this.state.data.location.city}, ${this.state.data.location.state}, ${this.state.data.location.country}`}</Text> */}
             </View>
 
-            {/* <DismissKeyboard> */}
+            <DismissKeyboard>
               <KeyboardAvoidingView
                 style={{
                   flex: 1,
@@ -269,7 +269,7 @@ export default class ViewDealerScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>
-            {/* </DismissKeyboard> */}
+            </DismissKeyboard>
           </View>
 
           <View
@@ -280,7 +280,7 @@ export default class ViewDealerScreen extends Component {
             }}>
             <View
               style={{
-                marginTop: 20,
+                marginTop: -40,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
@@ -356,7 +356,7 @@ export default class ViewDealerScreen extends Component {
             <View
               style={{
                 // flex: 1,
-                marginTop: -30,
+                marginTop: -140,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>

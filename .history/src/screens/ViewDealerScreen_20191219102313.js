@@ -139,7 +139,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',
@@ -238,16 +238,16 @@ export default class ViewDealerScreen extends Component {
               {/* <Text>{`${this.state.data.location.city}, ${this.state.data.location.state}, ${this.state.data.location.country}`}</Text> */}
             </View>
 
-            {/* <DismissKeyboard> */}
+            {/* <DismissKeyboard>
               <KeyboardAvoidingView
                 style={{
                   flex: 1,
                   flexDirection: 'column',
                   justifyContent: 'center',
                 }}
-                behavior='padding'
-                keyboardVerticalOffset={100}
-              >
+                behavior="padding"
+                keyboardVerticalOffset={140}
+              > */}
                 <View
                   style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
                   <Input
@@ -268,8 +268,8 @@ export default class ViewDealerScreen extends Component {
                     <Icon name="phone" size={33} color="green" />
                   </TouchableOpacity>
                 </View>
-              </KeyboardAvoidingView>
-            {/* </DismissKeyboard> */}
+              {/* </KeyboardAvoidingView>
+            </DismissKeyboard> */}
           </View>
 
           <View
@@ -280,7 +280,7 @@ export default class ViewDealerScreen extends Component {
             }}>
             <View
               style={{
-                marginTop: 20,
+                marginTop: -20,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
@@ -356,7 +356,7 @@ export default class ViewDealerScreen extends Component {
             <View
               style={{
                 // flex: 1,
-                marginTop: -30,
+                marginTop: -140,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>

@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { Avatar, Input } from 'react-native-elements';
 import Moment from 'moment';
@@ -139,7 +140,7 @@ export default class ViewDealerScreen extends Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log('response object:', responseJson);
-        if (responseJson === null) {
+        if (responseJson.success === true) {
           this.setState({ sending: false });
           alert(
             'Verification link sent successfully, firebase state verify updated',
@@ -238,15 +239,15 @@ export default class ViewDealerScreen extends Component {
               {/* <Text>{`${this.state.data.location.city}, ${this.state.data.location.state}, ${this.state.data.location.country}`}</Text> */}
             </View>
 
-            {/* <DismissKeyboard> */}
+            <DismissKeyboard>
               <KeyboardAvoidingView
                 style={{
                   flex: 1,
                   flexDirection: 'column',
                   justifyContent: 'center',
                 }}
-                behavior='padding'
-                keyboardVerticalOffset={100}
+                behavior="padding"
+                keyboardVerticalOffset={140}
               >
                 <View
                   style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
@@ -269,154 +270,156 @@ export default class ViewDealerScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>
-            {/* </DismissKeyboard> */}
+            </DismissKeyboard>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              // flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
+          <ScrollView>
             <View
               style={{
-                marginTop: 20,
-                flexDirection: 'row',
+                flex: 1,
+                // flexDirection: 'row',
                 justifyContent: 'space-around',
               }}>
-              <TouchableOpacity
+              <View
                 style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate('AddConsumer', { user: user });
+                  marginTop: -20,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
                 }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Profile
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.navigate('AddConsumer', { user: user });
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Profile
                     </Text>
-                <Icon
-                  name="folder-open"
-                  size={40}
-                  color={colors.SKY_BLUE}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate('HardPull', {
-                    data: user,
-                  });
-                }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Hard Pull
+                  <Icon
+                    name="folder-open"
+                    size={40}
+                    color={colors.SKY_BLUE}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.navigate('HardPull', {
+                      data: user,
+                    });
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Hard Pull
                     </Text>
-                <Icon name="users" size={40} color={colors.SKY_BLUE} />
-              </TouchableOpacity>
+                  <Icon name="users" size={40} color={colors.SKY_BLUE} />
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Action 2
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Action 2
                     </Text>
-                <Icon name="signal" size={40} color={colors.SKY_BLUE} />
-              </TouchableOpacity>
+                  <Icon name="signal" size={40} color={colors.SKY_BLUE} />
+                </TouchableOpacity>
+              </View>
+
+              <View
+                style={{
+                  // flex: 1,
+                  marginTop: -140,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}>
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Action 3
+                    </Text>
+
+                  <Icon name="briefcase" size={40} color={colors.SKY_BLUE} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Action 4
+                    </Text>
+                  <Icon name="line-chart" size={40} color={colors.SKY_BLUE} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    paddingTop: 6,
+                    margin: 5,
+                    borderColor: 'skyblue',
+                    borderWidth: 1,
+                  }}>
+                  <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
+                    Action 5
+                    </Text>
+                  <Icon name="search" size={40} color={colors.SKY_BLUE} />
+                </TouchableOpacity>
+              </View>
             </View>
-
-            <View
-              style={{
-                // flex: 1,
-                marginTop: -30,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}>
-              <TouchableOpacity
-                style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Action 3
-                    </Text>
-
-                <Icon name="briefcase" size={40} color={colors.SKY_BLUE} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Action 4
-                    </Text>
-                <Icon name="line-chart" size={40} color={colors.SKY_BLUE} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: 80,
-                  height: 80,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  paddingTop: 6,
-                  margin: 5,
-                  borderColor: 'skyblue',
-                  borderWidth: 1,
-                }}>
-                <Text style={{ fontWeight: 'bold', color: 'skyblue' }}>
-                  Action 5
-                    </Text>
-                <Icon name="search" size={40} color={colors.SKY_BLUE} />
-              </TouchableOpacity>
-            </View>
-          </View>
+          </ScrollView>
         </View >
       );
     }
@@ -473,7 +476,7 @@ export default class ViewDealerScreen extends Component {
                       flex: 0,
                       alignItems: 'flex-start',
                       marginRight: 10,
-                      marginLeft:80
+                      marginLeft: 80
                     }}>
                     <Text>
                       {user.first_name} {user.last_name}
