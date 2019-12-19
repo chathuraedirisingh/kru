@@ -117,6 +117,7 @@ export default class AddConsumerScreen extends Component {
     this.submit_data();
     this.toggleSubmition(true)
     setTimeout(() => {
+      this.forceUpdate();
       this.toggleSubmition(false)
       this.props.navigation.navigate('ViewDealer')
     }, 3000)

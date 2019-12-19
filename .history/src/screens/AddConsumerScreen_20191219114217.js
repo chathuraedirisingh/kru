@@ -100,7 +100,6 @@ export default class AddConsumerScreen extends Component {
   };
 
   toggleSubmition = (status) => {
-    this.state.active=0;
     this.setState((prevState) => {
       return { submitted: status }
     });
@@ -118,10 +117,10 @@ export default class AddConsumerScreen extends Component {
     this.toggleSubmition(true)
     setTimeout(() => {
       this.toggleSubmition(false)
+      this.state.active=0;
+      this.forceUpdate();
       this.props.navigation.navigate('ViewDealer')
     }, 3000)
-
-    console.log(this.state)
   };
 
   submit_data() {

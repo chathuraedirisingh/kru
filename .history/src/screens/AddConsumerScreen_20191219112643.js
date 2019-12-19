@@ -41,7 +41,7 @@ export default class AddConsumerScreen extends Component {
     submitted: false,
     user: [],
     entity: '',
-    active: 0
+    active:0
   }
 
   componentDidMount() {
@@ -90,9 +90,12 @@ export default class AddConsumerScreen extends Component {
   };
 
   onNextStep = () => {
-    // console.log(this.state.user);
-    this.state.active += 1;
-    console.log(this.state)
+    console.log(this.state.user);
+  };
+
+  onPaymentStepComplete = () => {
+    // alert('Payment step completed!');
+    console.log(this.state.user);
   };
 
   onPrevStep = () => {
@@ -100,7 +103,6 @@ export default class AddConsumerScreen extends Component {
   };
 
   toggleSubmition = (status) => {
-    this.state.active=0;
     this.setState((prevState) => {
       return { submitted: status }
     });
@@ -120,18 +122,16 @@ export default class AddConsumerScreen extends Component {
       this.toggleSubmition(false)
       this.props.navigation.navigate('ViewDealer')
     }, 3000)
-
-    console.log(this.state)
   };
 
-  submit_data() {
+  submit_data(){
     firebase
       .database()
       .ref('dealer_web/' + this.state.entity)
       .update(this.state.user)
       .then(data => {
         console.log(data);
-        this.state.active = 0;
+        this.state.active=0;
         // console.log(this.state.user)
         // let newState = {
         //   user: data.val()
@@ -158,7 +158,7 @@ export default class AddConsumerScreen extends Component {
     // console.log("State " + JSON.stringify(this.state))
 
 
-    var progressStepsStyle = {
+    const progressStepsStyle = {
       activeStepIconBorderColor: '#B0E0E6',
       activeLabelColor: 'green',
       activeStepNumColor: 'white',
@@ -166,7 +166,7 @@ export default class AddConsumerScreen extends Component {
       completedStepIconColor: '#4682B4',
       completedProgressBarColor: '#4682B4',
       completedCheckColor: 'green',
-      activeStep: 0,
+      activeStep:this.state.active
     };
 
     const buttonTextStyle = {
@@ -222,10 +222,10 @@ export default class AddConsumerScreen extends Component {
             >
               <ScrollView>
                 <View style={{ flex: 12, marginTop: -30 }}>
-                  <ProgressSteps {...progressStepsStyle} activeStep={0}>
+                  <ProgressSteps {...progressStepsStyle}>
                     <ProgressStep
                       label=""
-                      onNext={this.onNextStep}
+                      onNext={this.onPaymentStepComplete}
                       onPrevious={this.onPrevStep}
                       scrollViewProps={this.defaultScrollViewProps}>
                       <View style={{ flex: 1, flexDirection: 'column', margin: 10 }}>

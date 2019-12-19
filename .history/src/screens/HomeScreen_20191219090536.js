@@ -241,7 +241,7 @@ export default class HomeScreen extends Component {
           if (snapshot.val()) {
             console.log('data exist');
             this.state.showSuccessFrame = false;
-            // alert('User available');
+            alert('User available');
             this.state.authenticated = false;
           } else {
             this.state.showSuccessFrame = false;
@@ -269,12 +269,12 @@ export default class HomeScreen extends Component {
                   authenticated: true,
                 };
                 this.setState(newState);
-                // alert('dealer added successfully');
+                alert('dealer added successfully');
               })
               .catch(error => {
                 console.log(error);
                 //error callback
-                // alert('dealer adding failed');
+                alert('dealer adding failed');
                 let newState = {
                   authenticated: false,
                 };

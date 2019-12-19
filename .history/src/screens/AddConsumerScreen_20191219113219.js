@@ -100,7 +100,6 @@ export default class AddConsumerScreen extends Component {
   };
 
   toggleSubmition = (status) => {
-    this.state.active=0;
     this.setState((prevState) => {
       return { submitted: status }
     });
@@ -118,10 +117,10 @@ export default class AddConsumerScreen extends Component {
     this.toggleSubmition(true)
     setTimeout(() => {
       this.toggleSubmition(false)
+      this.state.active=0;
+      this.forceUpdate();
       this.props.navigation.navigate('ViewDealer')
     }, 3000)
-
-    console.log(this.state)
   };
 
   submit_data() {
@@ -222,7 +221,7 @@ export default class AddConsumerScreen extends Component {
             >
               <ScrollView>
                 <View style={{ flex: 12, marginTop: -30 }}>
-                  <ProgressSteps {...progressStepsStyle} activeStep={0}>
+                  <ProgressSteps {...progressStepsStyle}>
                     <ProgressStep
                       label=""
                       onNext={this.onNextStep}

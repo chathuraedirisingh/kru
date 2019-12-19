@@ -40,7 +40,7 @@ var renderIf = function(condition, content) {
   }
   return null;
 };
-export default class HomeScreen extends Component {
+export default class ScanIDScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Scan ID',
@@ -142,7 +142,7 @@ export default class HomeScreen extends Component {
 
     if (result instanceof BlinkIDReactNative.UsdlCombinedRecognizerResult) {
       let blinkIdResult = result;
-      // console.log(blinkIdResult);
+      console.log(blinkIdResult);
 
       let firedata = {};
       firedata['first_name'] = blinkIdResult.firstName;
@@ -241,7 +241,7 @@ export default class HomeScreen extends Component {
           if (snapshot.val()) {
             console.log('data exist');
             this.state.showSuccessFrame = false;
-            // alert('User available');
+            alert('User available');
             this.state.authenticated = false;
           } else {
             this.state.showSuccessFrame = false;
@@ -269,12 +269,12 @@ export default class HomeScreen extends Component {
                   authenticated: true,
                 };
                 this.setState(newState);
-                // alert('dealer added successfully');
+                alert('dealer added successfully');
               })
               .catch(error => {
                 console.log(error);
                 //error callback
-                // alert('dealer adding failed');
+                alert('dealer adding failed');
                 let newState = {
                   authenticated: false,
                 };
@@ -359,7 +359,7 @@ export default class HomeScreen extends Component {
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : null}>
             <View style={styles.main}>
-              <View
+              {/* <View
                 style={{
                   flex: 1,
                   flexDirection: 'row',
@@ -368,7 +368,7 @@ export default class HomeScreen extends Component {
                 }}>
                 <Text style={styles.welcomeText}>Welcome</Text>
                 <Text style={styles.usernameText}> {this.state.username}</Text>
-              </View>
+              </View> */}
 
               {renderIf(
                 this.state.showImageDocument,

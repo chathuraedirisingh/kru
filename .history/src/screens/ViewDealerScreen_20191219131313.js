@@ -87,7 +87,7 @@ export default class ViewDealerScreen extends Component {
         this._sendSMS(phone);
         this.setState({ sending: true });
       } else {
-        // alert("Invalid Mobile number (hint: don't add + ) ");
+        alert("Invalid Mobile number (hint: don't add + ) ");
       }
     } else {
       // alert('Hint: 9477xxxxxxx');
