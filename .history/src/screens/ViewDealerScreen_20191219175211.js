@@ -53,7 +53,7 @@ export default class ViewDealerScreen extends Component {
       error: false,
       sending: false,
       username: getUsername(),
-      first_name: ''
+      first_name:''
     };
     // Event Listener for orientation changes
     Dimensions.addEventListener('change', () => {
@@ -83,9 +83,13 @@ export default class ViewDealerScreen extends Component {
     // this.formatPhoneNumber(phone.toString());
 
     if (is_valid) {
-      console.log('valid');
-      this._sendSMS(phone);
-      this.setState({ sending: true });
+      if (phone.length <10) {
+        console.log('valid');
+        this._sendSMS(phone);
+        this.setState({ sending: true });
+      } else {
+        // alert("Invalid Mobile number (hint: don't add + ) ");
+      }
     } else {
       // alert('Hint: 9477xxxxxxx');
       // UxhaWUN/5tBGegMiFB6IRm8uPBXaHgtX52FmLDo2
@@ -237,36 +241,36 @@ export default class ViewDealerScreen extends Component {
             </View>
 
             {/* <DismissKeyboard> */}
-            <KeyboardAvoidingView
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-              behavior='padding'
-              keyboardVerticalOffset={100}
-            >
-              <View
-                style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
-                <Input
-                  placeholder=" Enter mobile number (required)"
-                  placeholderTextColor={colors.MD_GRAY}
-                  keyboardType={'numeric'}
-                  returnKeyType="next"
-                  containerStyle={{ width: 300, marginTop: 22, paddingTop: 8 }}
-                  ref={el => {
-                    this.phone = el;
-                  }}
-                  onChangeText={phone => this.setState({ phone })}
-                  value={this.state.phone}
-                />
-                <TouchableOpacity
-                  style={{ marginTop: 22, paddingTop: 8 }}
-                  onPress={() => this._handleVerify()}>
-                  <Icon name="phone" size={33} color="green" />
-                </TouchableOpacity>
-              </View>
-            </KeyboardAvoidingView>
+              <KeyboardAvoidingView
+                style={{
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+                behavior='padding'
+                keyboardVerticalOffset={100}
+              >
+                <View
+                  style={{ flex: 0, flexDirection: 'row', alignItems: 'center' }}>
+                  <Input
+                    placeholder=" Enter mobile number (required)"
+                    placeholderTextColor={colors.MD_GRAY}
+                    keyboardType={'numeric'}
+                    returnKeyType="next"
+                    containerStyle={{ width: 300, marginTop: 22, paddingTop: 8 }}
+                    ref={el => {
+                      this.phone = el;
+                    }}
+                    onChangeText={phone => this.setState({ phone })}
+                    value={this.state.phone}
+                  />
+                  <TouchableOpacity
+                    style={{ marginTop: 22, paddingTop: 8 }}
+                    onPress={() => this._handleVerify()}>
+                    <Icon name="phone" size={33} color="green" />
+                  </TouchableOpacity>
+                </View>
+              </KeyboardAvoidingView>
             {/* </DismissKeyboard> */}
           </View>
 
@@ -471,7 +475,7 @@ export default class ViewDealerScreen extends Component {
                       flex: 0,
                       alignItems: 'flex-start',
                       marginRight: 10,
-                      marginLeft: 80
+                      marginLeft:80
                     }}>
                     <Text>
                       {user.first_name} {user.last_name}
