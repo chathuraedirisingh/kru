@@ -133,7 +133,7 @@ export default class LoginScreen extends Component {
                     <Image
                     style={styles.logo} 
                     resizeMode = 'center'
-                    source={require('../../assets/image-trans.png')}/>
+                    source={require('../../assets/images/image-trans.png')}/>
                 </View>
                 <View style={styles.formContainer}>
                   <TextInput
