@@ -48,7 +48,7 @@ export default class ShowDetailsScreen extends Component {
                   onPress={this.props.navigation.openDrawer}
                 />
                 <TextInput
-                  placeholder="Search Here"
+                  placeholder="Search here"
                   style={styles.search}
                   underlineColorAndroid="transparent"
                   placeholderTextColor="#d5e6ee"

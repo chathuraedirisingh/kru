@@ -12,21 +12,19 @@ import {
   TextInput,
   Image,
   StatusBar,
-  ImageBackground,
   TouchableHighlight,
-  TouchableWithoutFeedback,
-  Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import colors from '../styles/colors';
-import {AppHeader} from '../components/AppHeader';
-
+import * as Icon from "react-native-vector-icons"
+import {COLORS} from '../../../assets/constants'
+import {AppHeader} from '../../components/AppHeader';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import * as BlinkIDReactNative from 'blinkid-react-native';
-import firebase from '../../configs/firebase';
+
+import firebase from '../../../configs/firebase';
 
 const licenseKey = Platform.select({
   ios:
@@ -41,7 +39,16 @@ var renderIf = function(condition, content) {
   }
   return null;
 };
-export default class ScanIDScreen extends Component {
+
+const isPortrait = () => {
+  const dim = Dimensions.get('screen');
+  return dim.height >= dim.width; //? 'Portrait' : 'Landscape';
+};
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+class HomeTabScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Scan ID',
@@ -56,6 +63,7 @@ export default class ScanIDScreen extends Component {
     super(props);
 
     this.state = {
+      isPortraint : isPortrait(),
       showImageDocument: false,
       resultImageDocument: '',
       showImageFace: false,
@@ -143,7 +151,7 @@ export default class ScanIDScreen extends Component {
 
     if (result instanceof BlinkIDReactNative.UsdlCombinedRecognizerResult) {
       let blinkIdResult = result;
-      console.log(blinkIdResult);
+      // console.log(blinkIdResult);
 
       let firedata = {};
       firedata['first_name'] = blinkIdResult.firstName;
@@ -298,6 +306,14 @@ export default class ScanIDScreen extends Component {
   // }
 
   componentDidMount() {
+    Dimensions.addEventListener('change', ({window: {width,height}}) => {
+      if (height > width) {
+        this.setState({isPortraint: true});
+      } else {
+        this.setState({isPortraint: false});
+      }
+    })
+
     AsyncStorage.getItem('@username').then(data => {
       if (data) {
         this.setState({username: data});
@@ -305,6 +321,16 @@ export default class ScanIDScreen extends Component {
       }
     });
   }
+  // componentWillMount() {
+  //   Dimensions.addEventListener('change', ({window: {width,height}}) => {
+  //     if (height > width) {
+  //       this.setState({isPortraint: true});
+  //     } else {
+  //       this.setState({isPortraint: false});
+  //     }
+  //   })
+  // }
+
 
   handleSearchChange = text => {
     setTimeout(() => {
@@ -312,26 +338,52 @@ export default class ScanIDScreen extends Component {
     }, 2000);
   };
 
+  _orientationStyle() {
+    const portrait = {direction :'column',imgWidth:200,imgHeight:'50%'}
+    const landscape = {direction :'row',imgWidth:'60%',imgHeight:'50%' }
+    if (this.state.isPortraint) {
+        return portrait
+    } else {
+      return landscape
+    }
+  }
+
   render() {
     const {navigate} = this.props.navigation;
     let displayImageDocument = this.state.resultImageDocument;
     return (
         <View style={{flex: 1}}>
-          <AppHeader title={"Scan"} isMenu={false} navigation={this.props.navigation}/>
-          <KeyboardAvoidingView
-            style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : null}>
-            <View style={styles.main}>
-              {/* <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}>
-                <Text style={styles.welcomeText}>Welcome</Text>
-                <Text style={styles.usernameText}> {this.state.username}</Text>
-              </View> */}
+         <AppHeader title={"Home"} isMenu={true} navigation={this.props.navigation}/>
+
+        <View 
+          style={{ 
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center',
+            flexDirection:this._orientationStyle().direction// animate
+          }}> 
+           <View 
+            style={{
+              justifyContent:'center',
+              alignItems:'center',
+              
+            }}>
+              <View  
+                style={{ 
+                  backgroundColor:'#FFF',
+                   height:100 , 
+                   width:300 ,
+                   borderRadius:0,
+                   justifyContent:'flex-start',
+                   alignItems:'center',
+                   }}>
+                <Text style={{ fontWeight:'normal', fontSize:18,color:'#8ca2c3',marginTop:-10}}>Welcome </Text>
+                <Text style={{ fontWeight:'700', fontSize:24 ,color:'#404A59'}}>
+                  {
+                    this.state.username ? this.state.username: '<USERNAME>'
+                  }
+                </Text>
+              </View>
 
               {renderIf(
                 this.state.showImageDocument,
@@ -343,51 +395,84 @@ export default class ScanIDScreen extends Component {
                   />
                 </View>,
               )}
+             {renderIf(
+              !this.state.showImageDocument,
+              <Image
+                style={{
+                  width:this._orientationStyle().imgWidth,
+                  height:this._orientationStyle().imgHeight,
+                  borderWidth:0.8,
+                  borderColor:'#3F9BDC'}}
+                resizeMode = 'center'
+                source={require('../../../assets/images/scan_logo.png')}/>
+             )}
+             
+          </View>
+          {/* top title end */}
+
+        {/* bottom half */}
+          <View 
+            style={{
+                flex:1,
+                justifyContent:'flex-start',
+                alignItems:'center',
+                marginVertical:10
+            }}>
+
               {renderIf(
-                !this.state.showImageDocument,
-                <View style={[styles.scanDividion]}>
-                  <View style={styles.outerCircle}>
-                    <View style={styles.innerCircle}>
-                      <AntIcon
-                        name="scan1"
-                        size={50}
-                        color={colors.MD_GRAY}
-                        style={{flex: 1, marginTop: 15, alignSelf: 'center'}}
-                      />
-                    </View>
-                  </View>
+              !this.state.showImageDocument,
+                <View style={{ alignItems:'center',justifyContent:'center'}}>
+                  <Text style={{ fontWeight:'normal', fontSize:16}}>Place Your ID Card</Text>
+                  <Text style={{ fontWeight:'normal', fontSize:14 , textAlign:'center' ,color:'#8ca2c3',paddingTop:10}}>
+                    (instruction) Lift and rest the edge of your {'\n'}finger on the Home button repeatedly
+                  </Text>
                 </View>,
               )}
-              {renderIf(
+
+              <View 
+              style={{
+                flex:1 ,
+                justifyContent:'flex-end',
+                alignItems:'center',
+                paddingBottom:'5%'
+                }}>
+               {/* authenticate button */}
+                {renderIf(
                 this.state.authenticated,
-                <TouchableHighlight
-                  style={[styles.buttonAuthenticated, {flex: 0}]}
-                  onPress={() => navigate('ViewDealers')}
-                  underlayColor="#3286C9">
-                  <Text style={styles.buttonText}>Authenticated</Text>
-                </TouchableHighlight>,
-              )}
+                  <TouchableHighlight underlayColor="#3286C9"
+                    onPress={() => navigate('ViewDealers')}
+                    style={[styles.buttonAuthenticated]}
+                    onPress={() => navigate('ViewDealers')}>
+                    <Text style={styles.buttonText}>Authenticated</Text>
+                  </TouchableHighlight>,
+                )}
 
               {renderIf(
                 !this.state.authenticated,
-                <TouchableHighlight
-                  style={[styles.buttonContainer, {flex: 0}]}
+                <TouchableHighlight underlayColor="#3286C9"
                   onPress={this.scan.bind(this)}
-                  underlayColor="#3286C9">
-                  <Text style={styles.buttonText}>SCAN ID</Text>
+                  style={[styles.buttonContainer]}>
+                  <Text style={styles.buttonText}>Scan Your ID</Text>
                 </TouchableHighlight>,
               )}
             </View>
-          </KeyboardAvoidingView>
+
+
+          </View>
+          
         </View>
+        {/* END main View */}
+      </View>
     );
   }
 }
-
+// https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/6852706/910/607/m1/fpnw/wm0/face-recognition-color-blue-22-.jpg?1566330696&s=8f6783ad3bdecbf5ac4045492eb50939
+// // https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/6852706/910/607/m1/fpnw/wm0/face-recognition-color-blue-22-.jpg?1566330696&s=8f6783ad3bdecbf5ac4045492eb50939
+// https://i.pinimg.com/originals/89/ed/bb/89edbbb05e94f8e216acd86ecd806f75.png
 const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-  },
+  // container: {
+  //   flex: 2,
+  // },
   main: {
     flex: 1,
     flexDirection: 'column',
@@ -398,7 +483,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 26,
     color: '#959595',
-    fontWeight: '600',
+    fontWeight: 'normal',
     alignSelf: 'flex-start',
   },
   usernameText: {
@@ -426,47 +511,45 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     margin: 10,
   },
-  scanDividion: {
-    flex: 5,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    width: '100%',
-    backgroundColor: colors.MD_GRAY,
+  // scanDividion: {
+  //   flex: 5,
+  //   borderColor: '#ccc',
+  //   borderWidth: 1,
+  //   borderStyle: 'dashed',
+  //   width: '100%',
+  //   //backgroundColor: colors.MD_GRAY,
+  //   backgroundColor:'#f4f4f4',
+  //   borderStyle: 'dotted',
+  //   borderRadius: 8,
+  //   marginBottom: 10,
+  //   marginTop: 5,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
 
-    borderStyle: 'dotted',
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  outerCircle: {
-    backgroundColor: colors.MD_GRAY,
-    width: 90,
-    height: 90,
-    borderRadius: 100 / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  innerCircle: {
-    backgroundColor: '#fff',
-    width: 80,
-    height: 80,
-    borderRadius: 80 / 2,
-  },
+  // outerCircle: {
+  //   backgroundColor: colors.MD_GRAY,
+  //   width: '90%',
+  //   height: '90%',
+  //   borderRadius: 100 / 2,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // innerCircle: {
+  //   backgroundColor: '#fff',
+  //   width: '50%',
+  //   height: '50%',
+  //   borderRadius: 80 / 2,
+  // },
 
   buttonContainer: {
-    flex: 0,
     backgroundColor: colors.BG_LIGHT_BUTTON,
-    paddingVertical: 20,
-    width: '100%',
-    height: 60,
-    borderRadius: 3,
-    marginTop: 20,
-    // marginTop: 10,
-    // borderRadius: 3,
+    width: SCREEN_WIDTH / 2,
+    height: 50,
+    // marginTop: -50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
   },
 
   buttonAuthenticated: {
@@ -481,10 +564,9 @@ const styles = StyleSheet.create({
     // borderRadius: 3,
   },
   buttonText: {
-    // fontSize:16,
-    textAlign: 'center',
-    color: '#FFF',
-    fontWeight: '700',
+    color:COLORS.WHITE,
+    fontSize:18,
+    fontWeight:'bold',
   },
   searchIcon: {
     marginRight: 10,
@@ -495,7 +577,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   name: {
-    width: Dimensions.get('screen').width - 50,
+    width: SCREEN_WIDTH - 50,
     color: '#FFF',
     fontSize: 20,
     fontWeight: '800',
@@ -520,3 +602,5 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+export default HomeTabScreen;
