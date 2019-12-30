@@ -255,7 +255,7 @@ export default class ViewDealerScreen extends Component {
         {
           this.state.hideHead ? null :
            <AppHeader title={null} 
-            isMenu={true} 
+            isMenu={false} 
             visible={false} 
             navigation={this.props.navigation}
            />

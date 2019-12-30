@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
-import { Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { Header, Left, Body, Right, Button, Icon, Title ,Item, Input} from 'native-base';
 import { SafeAreaView , View, Text,TouchableOpacity ,StyleSheet, TextInput ,Dimensions} from 'react-native';
 
 import { COLORS ,WINDOW_WIDTH } from '../../assets/constants'
 
 export class AppHeader extends Component {
+  state = {
+    serach : ""
+  }
+
+  searchItem = () => {
+
+  }
+
   componentDidMount() {
     const deviceHeight = Dimensions.get('window').height;
     //console.log('deviceHeight  ' + deviceHeight)
@@ -15,7 +23,11 @@ export class AppHeader extends Component {
    
     return (
       <SafeAreaView>
-       <Header transparent androidStatusBarColor ={COLORS.BLUE_STATUS} 
+       <Header 
+          transparent
+          // searchBar
+          // rounded
+          androidStatusBarColor ={COLORS.BLUE_STATUS} 
           style = {[visible ? {backgroundColor: COLORS.BLUE_HEAD} :{backgroundColor: COLORS.TRANSPARENT}]}>
           <Left>
             {
@@ -29,15 +41,16 @@ export class AppHeader extends Component {
             }
           </Left>
           <Body>
-            {/* <View style={[styles.searchContainer, !visible ? {opacity: 0} :{opacity:1}]} >
+            <View style={[styles.searchContainer, !visible ? {opacity: 0} :{opacity:1}]} >
                 <TextInput
                   style={styles.inputStyle}
                     autoCorrect={false}
                     placeholder="Search here..."
                     onChangeText={this.onSearchEntry}
                   />
-            </View> */}
+            </View>
            {/* <Text>{title}</Text> */}
+        
           </Body>
           <Right>
             <View>
@@ -47,22 +60,23 @@ export class AppHeader extends Component {
             </View>
           </Right>
         </Header>
-        {/* <View  
-          style={{
-            height:45,
-            backgroundColor:'#f4f4f4'
-          }}>
-          <TextInput 
-            style={{margin:5,
-              height:35,
-            paddingHorizontal:15,
-            borderRadius:50,
-            backgroundColor:'#e0e6ef',
-            width:'90%',
-            justifyContent:'center',
-            alignItems:'center',
-            alignSelf:'center'
-            }} placeholder="Search here..."/>
+        {/* <View style={{ paddingBottom:'1%',zIndex:100}}>
+        <Item>
+            
+             <Input
+             style={{
+               flex:1,
+               width:'100%',
+               backgroundColor:'#f4f4f4',
+               marginHorizontal:1,
+               borderRadius:1
+             }}
+              value = {this.state.serach}
+              placeholder="Search Somthing..."
+              onChangeText ={(serach) => this.setState({serach})}
+             />
+              <Icon name="search" onPress={this,this.searchItem}/>
+           </Item>
         </View> */}
       </SafeAreaView>
     );
@@ -79,8 +93,9 @@ const styles = StyleSheet.create({
   inputStyle: {
     flex: 0,
     color:'#FFF',
+    fontSize:17,
     borderColor:'#2d98da',
-    borderRadius:40,
+    //borderRadius:40,
     borderWidth:0,
     paddingVertical:10,
     paddingHorizontal:15,
