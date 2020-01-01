@@ -7,7 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import {AppHeader} from '../../components/AppHeader';
+import {AppHeader} from '../../components/header';
 import {List, ListItem} from 'react-native-elements';
 import firebase from '../../../configs/firebase';
 

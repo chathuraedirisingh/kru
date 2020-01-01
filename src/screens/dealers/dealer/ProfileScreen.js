@@ -11,7 +11,7 @@ import {
   Keyboard,
 } from 'react-native';
 
-import {AppHeader} from '../../../components/AppHeader';
+import {AppHeader} from '../../../components/header';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Input } from 'react-native-elements';

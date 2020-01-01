@@ -19,6 +19,7 @@ import { HomeStack,AlertStack,MessageStack,SettingStack } from './src/screens/ta
 
 import { COLORS } from './assets/constants';
 import { DealerStack } from './src/screens/dealers';
+import SearchPanel from './src/components/header/SearchPanel';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 
@@ -83,7 +84,7 @@ const MainTabs= createBottomTabNavigator({
 
 const MainStack = createStackNavigator({
   Home: {
-    screen: MainTabs,
+    screen: MainTabs, // MainTabs
     navigationOptions: navOptionHandler
   },
   Scan: {
@@ -156,12 +157,12 @@ const MainStack = createStackNavigator({
     // navigationOptions: {
     //   drawerLabel: () => null,
     // }
-  }
+  },
 
-  // hook: {
-  //   screen: ViewDealerScreen,
-  //   navigationOptions: navOptionHandler
-  // }
+  SearchPanel: {
+    screen: SearchPanel,
+    navigationOptions: navOptionHandler
+  }
   },{
   initialRouteName: 'Home' // Home
 });
@@ -200,7 +201,7 @@ const MainApp = createSwitchNavigator(
     auth:AuthStack,
   },
   {
-    initialRouteName:'auth'
+    initialRouteName:'app'
   }
 );
 

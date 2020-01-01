@@ -19,7 +19,7 @@ import {
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import * as Icon from "react-native-vector-icons"
 import {COLORS} from '../../../assets/constants'
-import {AppHeader} from '../../components/AppHeader';
+import {AppHeader} from '../../components/header';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import * as BlinkIDReactNative from 'blinkid-react-native';
@@ -354,7 +354,6 @@ class HomeTabScreen extends Component {
     return (
         <View style={{flex: 1}}>
          <AppHeader title={"Home"} isMenu={true} navigation={this.props.navigation}/>
-
         <View 
           style={{ 
             flex:1,
@@ -380,7 +379,7 @@ class HomeTabScreen extends Component {
                 <Text style={{ fontWeight:'normal', fontSize:18,color:'#8ca2c3',marginTop:-10}}>Welcome </Text>
                 <Text style={{ fontWeight:'700', fontSize:24 ,color:'#404A59'}}>
                   {
-                    this.state.username ? this.state.username: '<USERNAME>'
+                    this.state.username ? this.state.username.toUpperCase(): '<USERNAME>'
                   }
                 </Text>
               </View>

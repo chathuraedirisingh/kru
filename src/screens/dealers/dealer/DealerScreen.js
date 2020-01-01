@@ -24,7 +24,7 @@ import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {colors, COLORS} from '../../../../assets/constants';
 import firebase from '../../../../configs/firebase';
 import AsyncStorage from '@react-native-community/async-storage';
-import {AppHeader} from '../../../components/AppHeader';
+import {AppHeader} from '../../../components/header';
 
 var username;
 function getUsername() {
@@ -255,7 +255,7 @@ export default class ViewDealerScreen extends Component {
         {
           this.state.hideHead ? null :
            <AppHeader title={null} 
-            isMenu={false} 
+            isMenu={true} 
             visible={false} 
             navigation={this.props.navigation}
            />

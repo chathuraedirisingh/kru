@@ -11,7 +11,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {AppHeader} from '../../../components/AppHeader';
+import {AppHeader} from '../../../components/header';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AccordionList from '../../../components/accordion/AccordionList'
 import * as Animatable from 'react-native-animatable';
@@ -75,7 +75,7 @@ export default class HardPullScreen extends Component {
         })
         return (
             <View style={{flex:1}}>
-            <AppHeader title={null} isMenu={true} visible={false} navigation={this.props.navigation}/>
+            <AppHeader title={null} isMenu={false} visible={false} navigation={this.props.navigation}/>
             {/* <Animated.View
                 style={{
                 position: 'absolute',

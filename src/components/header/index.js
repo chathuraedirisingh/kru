@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Header, Left, Body, Right, Button, Icon, Title ,Item, Input} from 'native-base';
 import { SafeAreaView , View, Text,TouchableOpacity ,StyleSheet, TextInput ,Dimensions} from 'react-native';
 
-import { COLORS ,WINDOW_WIDTH } from '../../assets/constants'
+import { COLORS ,WINDOW_WIDTH } from '../../../assets/constants'
 
 export class AppHeader extends Component {
   state = {
@@ -25,8 +25,6 @@ export class AppHeader extends Component {
       <SafeAreaView>
        <Header 
           transparent
-          // searchBar
-          // rounded
           androidStatusBarColor ={COLORS.BLUE_STATUS} 
           style = {[visible ? {backgroundColor: COLORS.BLUE_HEAD} :{backgroundColor: COLORS.TRANSPARENT}]}>
           <Left>
@@ -40,7 +38,7 @@ export class AppHeader extends Component {
               </Button>
             }
           </Left>
-          <Body>
+          {/* <Body>
             <View style={[styles.searchContainer, !visible ? {opacity: 0} :{opacity:1}]} >
                 <TextInput
                   style={styles.inputStyle}
@@ -49,35 +47,15 @@ export class AppHeader extends Component {
                     onChangeText={this.onSearchEntry}
                   />
             </View>
-           {/* <Text>{title}</Text> */}
-        
-          </Body>
+          </Body> */}
           <Right>
             <View>
-              <TouchableOpacity >
+              <TouchableOpacity onPress={() =>  this.props.navigation.navigate('SearchPanel')}>
                 <Icon name='search' style={{color:'#FFF',fontSize:24}} />
               </TouchableOpacity>
             </View>
           </Right>
         </Header>
-        {/* <View style={{ paddingBottom:'1%',zIndex:100}}>
-        <Item>
-            
-             <Input
-             style={{
-               flex:1,
-               width:'100%',
-               backgroundColor:'#f4f4f4',
-               marginHorizontal:1,
-               borderRadius:1
-             }}
-              value = {this.state.serach}
-              placeholder="Search Somthing..."
-              onChangeText ={(serach) => this.setState({serach})}
-             />
-              <Icon name="search" onPress={this,this.searchItem}/>
-           </Item>
-        </View> */}
       </SafeAreaView>
     );
   }
@@ -107,4 +85,3 @@ const styles = StyleSheet.create({
     width:'180%',
   },
 });
-  

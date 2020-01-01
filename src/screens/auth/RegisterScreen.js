@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View , StyleSheet } from 'react-native';
 import { Button,Text } from 'native-base';
-import { AppHeader } from '../../components/AppHeader'
+import { AppHeader } from '../../components/header'
 import { COLORS } from '../../../assets/constants'
 
 export default class Register extends Component {

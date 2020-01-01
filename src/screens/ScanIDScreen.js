@@ -21,7 +21,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import colors from '../styles/colors';
-import {AppHeader} from '../components/AppHeader';
+import {AppHeader} from '../components/header';
 
 
 import AsyncStorage from '@react-native-community/async-storage';
