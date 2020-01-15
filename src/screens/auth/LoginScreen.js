@@ -28,9 +28,9 @@ const LoadingIndicator = (user) => {
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#143b63'}}>
-      <View><ActivityIndicator size='large' color={COLORS.SKY_BLUE}/></View>
-      <Text style={{fontSize:18, fontWeight:"700",padding:10 ,color:COLORS.SKY_BLUE}}>{status}</Text>
+        backgroundColor:'#4b6584'}}>
+      <View><ActivityIndicator size='large' color={COLORS.WHITE}/></View>
+      <Text style={{fontSize:18, fontWeight:"700",padding:10 ,color:COLORS.WHITE}}>{status}</Text>
     </View>
   );
 };
@@ -195,7 +195,6 @@ export default class Test extends Component {
   }
  
   render(){
-    //  ref = "rootView" 
     const marginTop = this.state.bottomHeight.interpolate({
       inputRange: [250, SCREEN_HEIGHT],
       outputRange: [20,100]
@@ -209,7 +208,7 @@ export default class Test extends Component {
 
     return(
       <>
-      <StatusBar backgroundColor="#113152" barStyle="light-content" />
+      <StatusBar backgroundColor="#3E536D" barStyle="light-content" />
       {/* <View> */}
        {this.state.fakeLoading ? <LoadingIndicator authicated={this.state.isAuthenticated}/> :
         <ImageBackground
