@@ -10,6 +10,7 @@ import {
 import {AppHeader} from '../../components/header';
 import {List, ListItem} from 'react-native-elements';
 import firebase from '../../../configs/firebase';
+import { COLORS } from '../../../assets/constants';
 
 const DealerItem = ({item}) => {
   return (
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headContainer: {
-    backgroundColor: colors.BG_MAIN_COVER,
+    backgroundColor: COLORS.BG_MAIN_COVER,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -278,7 +279,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%',
     textAlign: 'center',
-    color: colors.WHITE,
+    color: COLORS.WHITE,
     paddingHorizontal: 10,
     flex: 1,
     backgroundColor: 'rgba(255,255,255,0.2)',

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Dimensions} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { createAppContainer ,createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -18,10 +17,7 @@ import RegisterScreen from './src/screens/auth/RegisterScreen';
 import { HomeStack,AlertStack,MessageStack,SettingStack } from './src/screens/tabs'
 
 import { COLORS } from './assets/constants';
-import { DealerStack } from './src/screens/dealers';
 import SearchPanel from './src/components/header/SearchPanel';
-const WINDOW_WIDTH = Dimensions.get('window').width;
-
 
 const navOptionHandler = (navigation) => ({
   header: null,
@@ -201,7 +197,7 @@ const MainApp = createSwitchNavigator(
     auth:AuthStack,
   },
   {
-    initialRouteName:'app'
+    initialRouteName:'auth'
   }
 );
 

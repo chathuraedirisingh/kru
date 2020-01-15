@@ -16,6 +16,8 @@ const COLORS = {
     ICON_BLUE:'#45aaf2',
     BG_DARK_BUTTON:'#22618C',
     BG_LIGHT_BUTTON:'#3498db',
+    DEFAULT_BUTTON:'#2889d2',
+    AUTH_GREEN:'#59d3c8'
     
 }
 
@@ -35,6 +37,7 @@ const colors = {
     BG_GRAY:'#eeedf2',
     MD_GRAY:'#e2e8ec',
     LOW_GRAY:'#e9e9ee',
+    AUTH_GREEN:'#21de4d'
   }
 
   

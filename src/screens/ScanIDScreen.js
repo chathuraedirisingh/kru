@@ -4,23 +4,11 @@ import {
   Text,
   View,
   StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-  Keyboard,
-  ScrollView,
-  Button,
-  TextInput,
   Image,
-  StatusBar,
-  ImageBackground,
   TouchableHighlight,
-  TouchableWithoutFeedback,
-  Alert,
-  KeyboardAvoidingView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import colors from '../styles/colors';
+import {COLORS} from '../../assets/constants'
 import {AppHeader} from '../components/header';
 
 
@@ -57,6 +45,7 @@ export default class ScanIDScreen extends Component {
 
     this.state = {
       showImageDocument: false,
+      authenticated: false,
       resultImageDocument: '',
       showImageFace: false,
       resultImageFace: '',
@@ -64,7 +53,7 @@ export default class ScanIDScreen extends Component {
       successFrame: '',
       results: null,
       licenseKeyErrorMessage: '',
-      authenticated: false,
+
     };
   }
 
@@ -318,21 +307,18 @@ export default class ScanIDScreen extends Component {
     return (
         <View style={{flex: 1}}>
           <AppHeader title={"Scan"} isMenu={false} navigation={this.props.navigation}/>
-          <KeyboardAvoidingView
+          <View
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : null}>
             <View style={styles.main}>
-              {/* <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}>
-                <Text style={styles.welcomeText}>Welcome</Text>
-                <Text style={styles.usernameText}> {this.state.username}</Text>
-              </View> */}
-
+            <View style={styles.username}>
+                <Text style={{fontSize:28,color:'#65a5e9',fontWeight:'700',paddingVertical:10,textTransform: 'capitalize'}}>Welcome{'\t'}
+                    {
+                        this.state.username ? this.state.username.toLowerCase(): '<USERNAME>'
+                    }
+                </Text>
+             </View>
+            <View style={styles.scanDividion}>
               {renderIf(
                 this.state.showImageDocument,
                 <View style={styles.imageContainer}>
@@ -345,40 +331,41 @@ export default class ScanIDScreen extends Component {
               )}
               {renderIf(
                 !this.state.showImageDocument,
-                <View style={[styles.scanDividion]}>
+            
                   <View style={styles.outerCircle}>
                     <View style={styles.innerCircle}>
                       <AntIcon
                         name="scan1"
                         size={50}
-                        color={colors.MD_GRAY}
+                        color={COLORS.WHITE_GRAY}
                         style={{flex: 1, marginTop: 15, alignSelf: 'center'}}
                       />
                     </View>
                   </View>
-                </View>,
-              )}
-              {renderIf(
-                this.state.authenticated,
-                <TouchableHighlight
-                  style={[styles.buttonAuthenticated, {flex: 0}]}
-                  onPress={() => navigate('ViewDealers')}
-                  underlayColor="#3286C9">
-                  <Text style={styles.buttonText}>Authenticated</Text>
-                </TouchableHighlight>,
-              )}
-
-              {renderIf(
-                !this.state.authenticated,
-                <TouchableHighlight
-                  style={[styles.buttonContainer, {flex: 0}]}
-                  onPress={this.scan.bind(this)}
-                  underlayColor="#3286C9">
-                  <Text style={styles.buttonText}>SCAN ID</Text>
-                </TouchableHighlight>,
               )}
             </View>
-          </KeyboardAvoidingView>
+           <View style={styles.sectionBottom}>
+            {renderIf(this.state.authenticated,
+              <TouchableHighlight underlayColor="#3286C9"
+                  onPress={() => navigate('ViewDealers')}
+                  style={[styles.buttonAuthenticated]}
+                  onPress={() => navigate('ViewDealers')}>
+                  <Text style={styles.buttonText}>Authenticated</Text>
+              </TouchableHighlight>,
+              )}
+              
+              {renderIf(
+                  !this.state.authenticated,
+                  <TouchableHighlight underlayColor="#3286C9"
+                    onPress={this.scan.bind(this)}
+                    style={[styles.buttonScanId]}>
+                    <Text style={styles.buttonText}>Scan Your ID</Text>
+                  </TouchableHighlight>,
+              )}
+            </View>
+
+            </View>
+          </View>
         </View>
     );
   }
@@ -386,69 +373,45 @@ export default class ScanIDScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
+    backgroundColor:'#fff'
+  },
+  sectionBottom: {
+    flex: 1,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   main: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    margin: 20,
   },
   welcomeText: {
-    fontSize: 26,
+    fontSize: 24,
     color: '#959595',
-    fontWeight: '600',
+    fontWeight: 'bold',
     alignSelf: 'flex-start',
   },
-  usernameText: {
-    fontSize: 26,
-    color: colors.HIGHT_BLUE,
-    fontWeight: '600',
-    alignSelf: 'flex-start',
-  },
-  headContainer: {
-    backgroundColor: colors.BG_MAIN_COVER,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: 60,
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    textAlign: 'center',
-    color: colors.WHITE,
-    paddingHorizontal: 10,
-    flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    marginTop: 10,
-    marginBottom: 10,
-    margin: 10,
-  },
-  scanDividion: {
-    flex: 5,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    width: '100%',
-    backgroundColor: colors.MD_GRAY,
-
-    borderStyle: 'dotted',
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 5,
+  username: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '2%'
+  },
+  scanDividion: {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:'30%'
   },
 
   outerCircle: {
-    backgroundColor: colors.MD_GRAY,
+    backgroundColor: COLORS.WHITE_GRAY,
     width: 90,
     height: 90,
     borderRadius: 100 / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+
+    justifyContent:'center',
+    alignItems:'center'
   },
   innerCircle: {
     backgroundColor: '#fff',
@@ -457,34 +420,28 @@ const styles = StyleSheet.create({
     borderRadius: 80 / 2,
   },
 
-  buttonContainer: {
-    flex: 0,
-    backgroundColor: colors.BG_LIGHT_BUTTON,
-    paddingVertical: 20,
-    width: '100%',
-    height: 60,
-    borderRadius: 3,
-    marginTop: 20,
-    // marginTop: 10,
-    // borderRadius: 3,
+  buttonScanId: {
+    backgroundColor:COLORS.DEFAULT_BUTTON,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    marginHorizontal: 20,
+    marginBottom: 30
   },
-
   buttonAuthenticated: {
-    flex: 0,
-    backgroundColor: colors.AUTH_GREEN,
-    paddingVertical: 20,
-    width: '100%',
-    height: 60,
-    borderRadius: 3,
-    marginTop: 20,
-    // marginTop: 10,
-    // borderRadius: 3,
+    backgroundColor: COLORS.AUTH_GREEN,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    marginHorizontal: 20,
+    marginBottom: 20
   },
   buttonText: {
-    // fontSize:16,
-    textAlign: 'center',
     color: '#FFF',
-    fontWeight: '700',
+    fontSize: 18,
+    fontWeight: 'bold'
   },
   searchIcon: {
     marginRight: 10,
@@ -504,7 +461,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     flexDirection: 'row',
     flex: 5,
-    // justifyContent: 'center',
   },
   results: {
     fontSize: 20,
@@ -515,8 +471,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexShrink: 1,
     height: 200,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     margin: 10,
   },
 });

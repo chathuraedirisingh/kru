@@ -20,7 +20,8 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-
+.vscode
+.history/
 # Android/IntelliJ
 #
 build/
