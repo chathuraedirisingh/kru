@@ -15,7 +15,7 @@
     "blinkid-react-native": "^5.0.0",
     "firebase": "^7.6.0",
     "formik": "^2.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-animated-multistep": "^1.0.5",
